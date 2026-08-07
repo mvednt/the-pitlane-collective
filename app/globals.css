@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* The Pitlane Collective — design tokens                              */
+/* Single racing accent, globally swappable via --accent below.        */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* Brand neutrals */
+  --tpc-black: #0b0b0c;
+  --tpc-graphite: #252527;
+  --tpc-grey: #6b6b70;
+  --tpc-line: #e4e0d7;
+  --tpc-cream: #f4f1ea;
+  --tpc-white: #ffffff;
+
+  /* Single racing accent — change this one value to re-skin the brand */
+  --accent: #e10600;
+  --accent-contrast: #ffffff;
+
+  /* Semantic (light (cream) surface is the default brand canvas) */
+  --background: var(--tpc-cream);
+  --surface: var(--tpc-white);
+  --foreground: var(--tpc-black);
+  --muted: var(--tpc-grey);
+  --border: var(--tpc-line);
+
+  --container: 80rem; /* 1280px */
+  --header-h: 4rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-tpc-black: var(--tpc-black);
+  --color-tpc-graphite: var(--tpc-graphite);
+  --color-tpc-cream: var(--tpc-cream);
+  --color-tpc-white: var(--tpc-white);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+
+  --font-display: var(--font-anton);
+  --font-sans: var(--font-space);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display type: Anton is a single-weight condensed grotesque. */
+.font-display {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+/* Tabular numerals for prices, quantities, timing-screen UI. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Mono "timing-screen" technical labels: eyebrows, spec lines, section numbers. */
+.mono {
+  font-family: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Numbered editorial section eyebrow (e.g. "01 / Pole Position Picks"). */
+.section-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Utility: dark editorial section on the black canvas. */
+.section-dark {
+  background: var(--tpc-black);
+  color: var(--tpc-cream);
+}
+
+/* Infinite ticker marquee (paused under prefers-reduced-motion below). */
+@keyframes tpc-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  min-width: 100%;
+  animation: tpc-marquee 30s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

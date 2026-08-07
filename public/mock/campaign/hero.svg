@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1100" viewBox="0 0 2000 1100">
+  <rect width="2000" height="1100" fill="#0B0B0C"/>
+  <circle cx="1620" cy="240" r="420" fill="#E10600" opacity="0.13"/>
+  <circle cx="240" cy="960" r="300" fill="#E10600" opacity="0.10"/>
+  <g opacity="0.5">
+    <line x1="0" y1="880" x2="2000" y2="880" stroke="#E10600" stroke-width="4"/>
+    <line x1="0" y1="908" x2="2000" y2="908" stroke="#F4F1EA" stroke-width="4" stroke-dasharray="42 26"/>
+    <line x1="0" y1="220" x2="2000" y2="220" stroke="#F4F1EA" stroke-width="2" opacity="0.3"/>
+  </g>
+  <text x="1000" y="560" font-family="Arial, sans-serif" font-size="46" letter-spacing="18" fill="#F4F1EA" opacity="0.28" text-anchor="middle">THE PITLANE COLLECTIVE</text>
+</svg>

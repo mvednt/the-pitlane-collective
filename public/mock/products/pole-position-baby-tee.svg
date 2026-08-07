@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1250" viewBox="0 0 1000 1250">
+  <rect width="1000" height="1250" fill="#ECE9E1"/>
+  <rect x="250" y="210" width="500" height="640" rx="18" fill="#EAE3D6"/>
+  <rect x="360" y="210" width="280" height="70" rx="8" fill="#EAE3D6"/>
+  <rect x="335" y="255" width="70" height="150" rx="10" fill="#EAE3D6"/>
+  <rect x="595" y="255" width="70" height="150" rx="10" fill="#EAE3D6"/>
+  <g opacity="0.65">
+    <line x1="120" y1="1010" x2="880" y2="1010" stroke="#0B0B0C" stroke-width="3"/>
+    <line x1="120" y1="1030" x2="880" y2="1030" stroke="#E10600" stroke-width="3" stroke-dasharray="26 16"/>
+  </g>
+  <text x="500" y="1095" font-family="Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="1" fill="#0B0B0C" text-anchor="middle">POLE POSITION</text>
+  <text x="500" y="1140" font-family="Arial, sans-serif" font-size="20" letter-spacing="4" fill="#6B6B70" text-anchor="middle">BABY TEE</text>
+</svg>
