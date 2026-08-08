@@ -60,6 +60,21 @@ function assertNoUserErrors(
   }
 }
 
+/**
+ * Narrows a product list to a gender.
+ *
+ * `Product.gender` is derived in `toProduct` from the Shopify tags `men`,
+ * `women` and `unisex`. Applied after fetching (rather than as a Storefront
+ * `query:` filter) so it behaves identically on the collection and catalog
+ * paths, and matches the mock adapter's semantics. Products with no gender tag
+ * match nothing — tag them in Shopify to have them appear on /men and /women.
+ */
+function filterByGender(products: Product[], gender?: string): Product[] {
+  if (!gender) return products;
+  const wanted = gender.toLowerCase();
+  return products.filter((p) => p.gender.includes(wanted));
+}
+
 export const liveDataSource: ShopifyDataSource = {
   async getProducts(params: ProductListParams = {}): Promise<Product[]> {
     if (params.collectionHandle) {
@@ -78,8 +93,9 @@ export const liveDataSource: ShopifyDataSource = {
       });
 
       if (!data.collectionByHandle) return [];
-      return data.collectionByHandle.products.edges.map((e) =>
-        toProduct(e.node),
+      return filterByGender(
+        data.collectionByHandle.products.edges.map((e) => toProduct(e.node)),
+        params.gender,
       );
     }
 
@@ -95,7 +111,10 @@ export const liveDataSource: ShopifyDataSource = {
       },
     });
 
-    return data.products.edges.map((e) => toProduct(e.node));
+    return filterByGender(
+      data.products.edges.map((e) => toProduct(e.node)),
+      params.gender,
+    );
   },
 
   async getProduct(handle: string): Promise<Product | null> {
