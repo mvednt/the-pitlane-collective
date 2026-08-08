@@ -78,6 +78,59 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+/**
+ * Removes duplicate GraphQL fragment definitions from a composed query.
+ *
+ * Our fragment constants in `fragments.ts` are self-contained: each one appends
+ * the fragments it depends on. Composing overlapping fragments therefore emits
+ * the same `fragment` block more than once — e.g. `ProductFragment` pulls in
+ * `ProductVariantFragment`, which itself pulls in `MoneyFragment`/`ImageFragment`,
+ * so those definitions appear twice. GraphQL requires fragment names to be
+ * unique per document ("Fragment name ... must be unique"), so we keep the first
+ * definition of each name and drop later ones. Fragment spreads (`...Name`) and
+ * inline fragments (`... on Type`) are left untouched.
+ */
+export function dedupeFragmentDefinitions(query: string): string {
+  const fragmentStart = /fragment\s+(\w+)\s+on\s+\w+\s*\{/g;
+  const seen = new Set<string>();
+  const removals: Array<[number, number]> = [];
+  let match: RegExpExecArray | null;
+
+  while ((match = fragmentStart.exec(query)) !== null) {
+    const name = match[1];
+    const blockStart = match.index;
+    // Walk balanced braces from the opening `{` to find the block's end.
+    let depth = 0;
+    let i = query.indexOf("{", blockStart);
+    for (; i < query.length; i++) {
+      const ch = query[i];
+      if (ch === "{") depth++;
+      else if (ch === "}" && --depth === 0) {
+        i++;
+        break;
+      }
+    }
+    const blockEnd = i; // exclusive
+    if (seen.has(name)) {
+      removals.push([blockStart, blockEnd]);
+    } else {
+      seen.add(name);
+    }
+    // Resume scanning past this block so nested content isn't re-matched.
+    fragmentStart.lastIndex = blockEnd;
+  }
+
+  if (removals.length === 0) return query;
+
+  let result = "";
+  let cursor = 0;
+  for (const [start, end] of removals) {
+    result += query.slice(cursor, start);
+    cursor = end;
+  }
+  return result + query.slice(cursor);
+}
+
 /** Redacts the store domain from error text so logs don't leak the shop handle. */
 function redact(text: string, domain: string): string {
   return domain ? text.split(domain).join("<shop>") : text;
@@ -107,6 +160,7 @@ export async function shopifyFetch<TData, TVariables = Record<string, unknown>>(
     );
   }
 
+  const document = dedupeFragmentDefinitions(query);
   const endpoint = `https://${domain}/api/${apiVersion}/graphql.json`;
   const nextOptions =
     cache === "no-store"
@@ -127,7 +181,7 @@ export async function shopifyFetch<TData, TVariables = Record<string, unknown>>(
           Accept: "application/json",
           "X-Shopify-Storefront-Access-Token": token,
         },
-        body: JSON.stringify({ query, variables }),
+        body: JSON.stringify({ query: document, variables }),
         cache,
         next: nextOptions,
         signal: controller.signal,

@@ -26,7 +26,6 @@ export const PRODUCT_VARIANT_FRAGMENT = /* GraphQL */ `
     id
     title
     availableForSale
-    quantityAvailable
     sku
     selectedOptions {
       name
@@ -146,7 +145,6 @@ export const CART_FRAGMENT = /* GraphQL */ `
             ... on ProductVariant {
               id
               title
-              quantityAvailable
               selectedOptions {
                 name
                 value

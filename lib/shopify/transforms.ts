@@ -40,7 +40,9 @@ interface ShopifyProductVariantNode {
   id: string;
   title: string;
   availableForSale: boolean;
-  quantityAvailable: number | null;
+  // Not requested from Storefront (needs unauthenticated_read_product_inventory);
+  // absent in live responses, so optional here and coalesced to null downstream.
+  quantityAvailable?: number | null;
   sku: string | null;
   selectedOptions: Array<{ name: string; value: string }>;
   price: ShopifyMoney;
@@ -87,7 +89,7 @@ interface ShopifyCartLineNode {
   merchandise: {
     id: string;
     title: string;
-    quantityAvailable: number | null;
+    quantityAvailable?: number | null;
     selectedOptions: Array<{ name: string; value: string }>;
     image: ShopifyImage | null;
     product: { id: string; handle: string; title: string };
@@ -129,7 +131,7 @@ function toVariant(node: ShopifyProductVariantNode): ProductVariant {
     id: node.id,
     title: node.title,
     availableForSale: node.availableForSale,
-    quantityAvailable: node.quantityAvailable,
+    quantityAvailable: node.quantityAvailable ?? null,
     sku: node.sku,
     selectedOptions: node.selectedOptions,
     price: toMoney(node.price),
@@ -201,7 +203,7 @@ function toCartLine(node: ShopifyCartLineNode): CartLine {
       id: node.merchandise.id,
       title: node.merchandise.title,
       selectedOptions: node.merchandise.selectedOptions,
-      quantityAvailable: node.merchandise.quantityAvailable,
+      quantityAvailable: node.merchandise.quantityAvailable ?? null,
       image: toImage(node.merchandise.image),
       product: node.merchandise.product,
     },

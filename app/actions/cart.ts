@@ -11,7 +11,14 @@ const CART_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 export async function getCart(): Promise<Cart | null> {
   const cartId = (await cookies()).get(CART_COOKIE)?.value;
   if (!cartId) return null;
-  return shopify.getCart(cartId);
+  try {
+    return await shopify.getCart(cartId);
+  } catch {
+    // A stale or malformed cart cookie (an expired cart, or a mock-mode id
+    // reused against live Shopify) makes Shopify reject `$cartId`. A cart read
+    // is best-effort — degrade to "no cart" rather than crashing the page.
+    return null;
+  }
 }
 
 async function getOrCreateCartId(): Promise<string> {
@@ -19,8 +26,12 @@ async function getOrCreateCartId(): Promise<string> {
   const existingId = cookieStore.get(CART_COOKIE)?.value;
 
   if (existingId) {
-    const existingCart = await shopify.getCart(existingId);
-    if (existingCart) return existingId;
+    try {
+      const existingCart = await shopify.getCart(existingId);
+      if (existingCart) return existingId;
+    } catch {
+      // Invalid/expired cookie — fall through and create a fresh cart.
+    }
   }
 
   const cart = await shopify.createCart();
