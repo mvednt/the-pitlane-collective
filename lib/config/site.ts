@@ -70,7 +70,7 @@ export const hero = {
   headline: "The grid looks different from here.",
   supporting:
     "Premium motorsport-inspired apparel, designed for everyday rotation.",
-  primaryCta: { label: "Shop the drop", href: "/collections/new-drop" },
+  primaryCta: { label: "Shop the collection", href: "/shop" },
   secondaryCta: { label: "Explore TPC", href: "/pages/about" },
   image: "/mock/campaign/hero.svg",
 } as const;
@@ -166,63 +166,7 @@ export const popularSearches: string[] = [
 
 /** Primary navigation with mega-menu content (spec §8B). */
 export const mainMenu: MegaMenu[] = [
-  { label: "New Drop", href: "/collections/new-drop" },
-  {
-    label: "Men",
-    href: "/men",
-    columns: [
-      {
-        heading: "Shop Men",
-        links: [
-          { label: "All Men", href: "/men" },
-          { label: "Oversized Tees", href: "/collections/oversized?gender=men" },
-          { label: "Jerseys", href: "/collections/jerseys?gender=men" },
-        ],
-      },
-      {
-        heading: "Collections",
-        links: [
-          { label: "New Drop", href: "/collections/new-drop" },
-          { label: "Bestsellers", href: "/collections/bestsellers" },
-        ],
-      },
-    ],
-    feature: {
-      title: "The First Drop",
-      href: "/collections/new-drop",
-      image: "/mock/collections/oversized.svg",
-    },
-  },
-  {
-    label: "Women",
-    href: "/women",
-    columns: [
-      {
-        heading: "Shop Women",
-        links: [
-          { label: "All Women", href: "/women" },
-          { label: "Baby Tees", href: "/collections/baby-tees" },
-          {
-            label: "Oversized Tees",
-            href: "/collections/oversized?gender=women",
-          },
-          { label: "Jerseys", href: "/collections/jerseys?gender=women" },
-        ],
-      },
-      {
-        heading: "Collections",
-        links: [
-          { label: "New Drop", href: "/collections/new-drop" },
-          { label: "Bestsellers", href: "/collections/bestsellers" },
-        ],
-      },
-    ],
-    feature: {
-      title: "Baby Tees",
-      href: "/collections/baby-tees",
-      image: "/mock/collections/baby-tees.svg",
-    },
-  },
+  { label: "Shop All", href: "/shop" },
   { label: "Oversized", href: "/collections/oversized" },
   { label: "Baby Tees", href: "/collections/baby-tees" },
   { label: "Jerseys", href: "/collections/jerseys" },
@@ -234,12 +178,10 @@ export const footerColumns: NavColumn[] = [
   {
     heading: "Shop",
     links: [
-      { label: "New Drop", href: "/collections/new-drop" },
+      { label: "Shop All", href: "/shop" },
       { label: "Oversized", href: "/collections/oversized" },
       { label: "Baby Tees", href: "/collections/baby-tees" },
       { label: "Jerseys", href: "/collections/jerseys" },
-      { label: "Men", href: "/men" },
-      { label: "Women", href: "/women" },
     ],
   },
   {
