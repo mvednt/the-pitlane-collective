@@ -17,7 +17,7 @@ export default async function CartPage() {
       <h1 className="mb-8 font-display text-4xl tracking-tight">Your Cart</h1>
 
       {lines.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-border py-16 text-center ">
+        <div className="border border-dashed border-border py-16 text-center ">
           <p className="mb-4 text-muted">Your cart is empty.</p>
           <Link
             href="/"
@@ -27,7 +27,7 @@ export default async function CartPage() {
           </Link>
         </div>
       ) : (
-        <div className="rounded-lg border border-border px-5 ">
+        <div className="border border-border px-5 ">
           <ul className="divide-y divide-border">
             {lines.map((line) => (
               <CartLineItem key={line.id} line={line} />
@@ -49,7 +49,7 @@ export default async function CartPage() {
             value={Number(cart.cost.subtotalAmount.amount)}
             currency={cart.cost.subtotalAmount.currencyCode}
             items={cart.totalQuantity}
-            className="w-full max-w-xs rounded-md bg-tpc-black py-3 text-center text-sm font-semibold uppercase tracking-wide text-tpc-cream hover:opacity-90"
+            className="w-full max-w-xs bg-accent py-3 text-center text-sm font-semibold uppercase tracking-wide text-accent-contrast transition-colors hover:bg-tpc-white hover:text-tpc-black"
           >
             Checkout
           </CheckoutButton>

@@ -1,20 +1,27 @@
+import { Reveal } from "@/components/ui/Reveal";
 import { newsletter } from "@/lib/config/site";
 import { NewsletterForm } from "./NewsletterForm";
 
 export function NewsletterSection() {
   return (
-    <section className="section-dark">
-      <div className="mx-auto max-w-6xl px-6 py-20 text-center">
-        <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
+    <Reveal
+      as="section"
+      className="gutter flex flex-wrap items-center justify-between gap-10 border-t border-border bg-surface py-[clamp(3rem,6vw,6rem)]"
+    >
+      <div className="min-w-0 flex-[1_1_23.75rem]">
+        <h2 className="font-display m-0 text-[clamp(2rem,3.6vw,3.625rem)] leading-[0.96]">
           {newsletter.heading}
+          <br />
+          <span className="text-accent">{newsletter.headingAccent}</span>
         </h2>
-        <p className="mx-auto mt-3 max-w-md text-tpc-cream/70">
+        <p className="mt-5 text-[1.0625rem] leading-[1.55] text-muted">
           {newsletter.body}
         </p>
-        <div className="mt-8 flex justify-center">
-          <NewsletterForm variant="onDark" />
-        </div>
       </div>
-    </section>
+
+      <div className="min-w-0 flex-[1_1_26.25rem]">
+        <NewsletterForm />
+      </div>
+    </Reveal>
   );
 }

@@ -25,14 +25,14 @@ export interface MegaMenu {
 }
 
 /**
- * Brand logo wiring. Drop your files in public/brand and set useLogoFiles=true
- * to switch from the typographic placeholder to your artwork (spec: user is
- * supplying PNG/SVG files).
+ * Brand logo wiring. The supplied lockup/stacked artwork lives in public/brand.
+ * `logoOnLight` is null because the artwork is drawn in bone + racing red for
+ * the dark canvas; add a dark-ink file here if a light surface is introduced.
  */
 export const brandConfig = {
-  useLogoFiles: false,
-  logoOnDark: "/brand/logo-dark.svg", // light artwork, for dark backgrounds
-  logoOnLight: "/brand/logo-light.svg", // dark artwork, for light backgrounds
+  logoOnDark: "/brand/logo-lockup.png", // light artwork, for dark backgrounds
+  logoOnLight: null as string | null, // dark artwork, for light backgrounds
+  logoStacked: "/brand/logo-stacked.png",
 } as const;
 
 export const siteConfig = {
@@ -63,91 +63,82 @@ export const announcements: string[] = [
   "Prepaid & COD available",
 ];
 
-/** Hero (spec §8C). */
+/**
+ * Hero (spec §8C). The headline is set as three separately animated lines,
+ * the last one in the racing accent.
+ */
 export const hero = {
   eyebrow: "First Drop",
-  spec: "Race-week drops · Limited runs · Shipped across India",
-  headline: "The grid looks different from here.",
+  headlineLines: ["Dressed", "For Lights"] as string[],
+  headlineAccentLine: "Out.",
   supporting:
-    "Premium motorsport-inspired apparel, designed for everyday rotation.",
-  primaryCta: { label: "Shop the collection", href: "/shop" },
-  secondaryCta: { label: "Explore TPC", href: "/pages/about" },
+    "Motorsport-inspired apparel, cut and sewn in India. Track-tested materials. Street-ready silhouettes.",
+  primaryCta: { label: "Shop collection", href: "#shop" },
+  secondaryCta: { label: "Lookbook", href: "#lookbook" },
   image: "/mock/campaign/hero.svg",
 } as const;
 
 /**
- * Scrolling ticker selling points (timing-screen aesthetic). `◆` separators are
- * added by the component. Kept honest — no invented delivery windows.
+ * Three at-a-glance figures stacked beside the hero headline.
+ *
+ * NOTE: `4.9★` is design placeholder copy, not a measured rating — replace it
+ * (or drop the third stat) once real review data is wired up.
  */
-export const ticker: string[] = [
-  "Free shipping over ₹1,999",
-  "Heavyweight cotton",
-  "Screen-print detailing",
-  "Limited runs · No restocks guaranteed",
-  "New drop every race week",
-  "Prepaid & COD",
-];
+export const heroStats: Array<{ value: string; accent?: string; label: string }> =
+  [
+    { value: "3", label: "Silhouettes" },
+    { value: "₹1999+", label: "Free shipping" },
+    { value: "4.9", accent: "★", label: "Rating" },
+  ];
 
-/** Honest at-a-glance stats for the home stat band (no fabricated metrics). */
-export const stats: Array<{ value: string; label: string }> = [
-  { value: "03", label: "Core categories" },
-  { value: "₹1,999", label: "Free shipping over" },
-  { value: "PAN-INDIA", label: "Shipping" },
-  { value: "LIMITED", label: "Runs · no restocks" },
-];
+/**
+ * Aggregate review figure shown on the featured piece.
+ *
+ * NOTE: placeholder copy from the design — swap for real review data (or
+ * remove the row) before launch.
+ */
+export const reviewSummary = { rating: "4.9", count: 214 } as const;
 
-/** Shop-by-category editorial blocks (spec §8D). */
-export const categoryBlocks = [
+/**
+ * Lookbook tiles (home). Each one links into the collection it shows; the
+ * first tile runs full height beside the two stacked ones.
+ */
+export const lookbook = [
   {
     title: "Oversized",
-    descriptor: "Boxy, heavyweight, everyday.",
-    href: "/collections/oversized",
+    handle: "oversized",
     image: "/mock/collections/oversized.svg",
   },
   {
     title: "Baby Tees",
-    descriptor: "Fitted, cropped, sharp.",
-    href: "/collections/baby-tees",
+    handle: "baby-tees",
     image: "/mock/collections/baby-tees.svg",
   },
   {
     title: "Jerseys",
-    descriptor: "Paddock-issue, off the circuit.",
-    href: "/collections/jerseys",
+    handle: "jerseys",
     image: "/mock/collections/jerseys.svg",
   },
 ] as const;
 
-/** Brand manifesto (spec §8H). */
-export const brandStatement = {
-  heading: "Designed around the culture, not just the logo.",
-  body: "Official merchandise is expensive and hard to get in India. The cheap alternatives cut corners on fabric, fit and design. TPC sits in between — considered, wearable, culturally aware pieces made for the ones watching every lap.",
+/** Brand story block (home). */
+export const story = {
+  eyebrow: "Our story",
+  headline: "Built In The",
+  headlineAccent: "Pit Lane.",
+  body: [
+    "The Pitlane Collective started with three silhouettes and a rule: nothing goes on a garment that we didn't draw ourselves. No borrowed marks, no team replicas.",
+    "Cut and sewn in India, in a fixed collection we keep in stock. Oversized tees, baby tees and jerseys — built to be worn, not saved for a race weekend.",
+  ],
+  cta: { label: "Read the full story", href: "/pages/about" },
+  image: "/mock/collections/new-drop.svg",
 } as const;
-
-/** Craftsmanship claims — editable placeholders until final specs land (spec §8I). */
-export const craftsmanship = [
-  {
-    title: "Heavyweight cotton",
-    body: "240–260 GSM combed cotton with a structured, boxy drape.",
-  },
-  {
-    title: "Screen-print detailing",
-    body: "High-density and puff prints finished to hold up wash after wash.",
-  },
-  {
-    title: "Considered fit",
-    body: "Blocks tuned for an oversized silhouette that still sits clean.",
-  },
-  {
-    title: "Limited runs",
-    body: "Small production batches. No restocks guaranteed.",
-  },
-] as const;
 
 /** Newsletter (spec §8K). */
 export const newsletter = {
-  heading: "Get on the grid",
-  body: "Be first to know about new drops, restocks and limited releases.",
+  heading: "Early access.",
+  headingAccent: "New colourways.",
+  body: "Join the list. New pieces and colourways, straight to your inbox.",
 } as const;
 
 /**

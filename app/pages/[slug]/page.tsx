@@ -34,7 +34,7 @@ export default async function ContentPage(props: PageProps<"/pages/[slug]">) {
       </h1>
 
       {page.reviewRequired ? (
-        <p className="mt-6 rounded-md border border-accent/30 bg-accent/5 p-4 text-sm text-foreground/80">
+        <p className="mt-6 border border-accent/30 bg-accent/5 p-4 text-sm text-foreground/80">
           <strong className="font-semibold">Draft — pending review.</strong>{" "}
           This policy is placeholder content and has not been legally reviewed.
           It is not binding until finalised.
@@ -53,13 +53,13 @@ export default async function ContentPage(props: PageProps<"/pages/[slug]">) {
             href={siteConfig.social.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md bg-tpc-black px-5 py-2.5 font-semibold uppercase tracking-wide text-tpc-cream"
+            className="bg-accent px-5 py-2.5 font-semibold uppercase tracking-wide text-accent-contrast transition-colors hover:bg-tpc-white hover:text-tpc-black"
           >
             WhatsApp us
           </a>
           <a
             href="mailto:hello@thepitlanecollective.test"
-            className="rounded-md border border-border px-5 py-2.5 font-semibold"
+            className="border border-border px-5 py-2.5 font-semibold"
           >
             Email us
           </a>
@@ -91,7 +91,7 @@ export default async function ContentPage(props: PageProps<"/pages/[slug]">) {
               </ul>
             ) : null}
             {section.note ? (
-              <p className="mt-2 rounded-md border border-border bg-surface p-3 text-xs text-muted">
+              <p className="mt-2 border border-border bg-surface p-3 text-xs text-muted">
                 {section.note}
               </p>
             ) : null}

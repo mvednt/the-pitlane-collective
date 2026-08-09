@@ -13,7 +13,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/products/${product.handle}`} className="group block">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-tpc-white">
+      <div className="relative aspect-[4/5] overflow-hidden bg-tpc-panel">
         {product.featuredImage ? (
           <Image
             src={product.featuredImage.url}

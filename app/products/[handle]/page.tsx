@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { TrackEvent } from "@/components/analytics/TrackEvent";
 import { Gallery } from "@/components/product/Gallery";
 import { ProductAccordions } from "@/components/product/ProductAccordions";
+import { ProductMediaProvider } from "@/components/product/ProductMediaContext";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
 import { ProductRail } from "@/components/product/ProductRail";
 import { RecentlyViewed } from "@/components/product/RecentlyViewed";
@@ -80,26 +81,28 @@ export default async function ProductPage(
         </ol>
       </nav>
 
-      <div className="grid gap-12 lg:grid-cols-2">
-        <div className="lg:sticky lg:top-24 lg:self-start">
-          <Gallery images={product.images} title={product.title} />
-        </div>
-
-        <div>
-          <div className="mb-1 flex items-center gap-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted">
-              {product.productType}
-            </p>
-            {product.badge ? <Badge badge={product.badge} /> : null}
+      <ProductMediaProvider>
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <Gallery images={product.images} title={product.title} />
           </div>
-          <h1 className="mb-6 font-display text-3xl tracking-tight sm:text-4xl">
-            {product.title}
-          </h1>
 
-          <ProductPurchase product={product} />
-          <ProductAccordions product={product} />
+          <div>
+            <div className="mb-1 flex items-center gap-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+                {product.productType}
+              </p>
+              {product.badge ? <Badge badge={product.badge} /> : null}
+            </div>
+            <h1 className="mb-6 font-display text-3xl tracking-tight sm:text-4xl">
+              {product.title}
+            </h1>
+
+            <ProductPurchase product={product} />
+            <ProductAccordions product={product} />
+          </div>
         </div>
-      </div>
+      </ProductMediaProvider>
 
       <ProductRail title="You might also like" products={related} />
       <RecentlyViewed current={toRecent(product)} />

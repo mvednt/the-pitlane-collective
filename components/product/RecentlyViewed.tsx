@@ -39,7 +39,7 @@ export function RecentlyViewed({ current }: { current: RecentProduct }) {
             href={`/products/${item.handle}`}
             className="group w-40 shrink-0 snap-start sm:w-52"
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-tpc-white">
+            <div className="relative aspect-[4/5] overflow-hidden bg-tpc-panel">
               {item.image ? (
                 <Image
                   src={item.image}

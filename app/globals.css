@@ -2,31 +2,38 @@
 
 /* ------------------------------------------------------------------ */
 /* The Pitlane Collective — design tokens                              */
-/* Single racing accent, globally swappable via --accent below.        */
+/* Palette + type taken from the "Pitlane Homepage" design file:       */
+/* near-black canvas, single racing accent, Helvetica display type and */
+/* a monospace "timing screen" voice for labels.                       */
 /* ------------------------------------------------------------------ */
 
 :root {
-  /* Brand neutrals */
-  --tpc-black: #0b0b0c;
-  --tpc-graphite: #252527;
-  --tpc-grey: #6b6b70;
-  --tpc-line: #e4e0d7;
-  --tpc-cream: #f4f1ea;
+  /* Brand neutrals (dark canvas) */
+  --tpc-black: #0a0a0a; /* page canvas */
+  --tpc-panel: #0e0f11; /* raised band / card surface */
+  --tpc-graphite: #17191b; /* hover fill */
+  --tpc-hairline: #1c1e20; /* section dividers */
+  --tpc-stroke: #2a2d30; /* control borders */
+  --tpc-grey: #8a8d90; /* muted ink */
+  --tpc-dim: #6f7376; /* dimmest ink */
+  --tpc-body: #a4a7aa; /* long-form body copy */
+  --tpc-cream: #f1efe9; /* "paddock bone" — logo art, warm highlights */
   --tpc-white: #ffffff;
 
   /* Single racing accent — change this one value to re-skin the brand */
   --accent: #e10600;
   --accent-contrast: #ffffff;
 
-  /* Semantic (light (cream) surface is the default brand canvas) */
-  --background: var(--tpc-cream);
-  --surface: var(--tpc-white);
-  --foreground: var(--tpc-black);
+  /* Semantic (the near-black canvas is the brand surface) */
+  --background: var(--tpc-black);
+  --surface: var(--tpc-panel);
+  --foreground: var(--tpc-white);
   --muted: var(--tpc-grey);
-  --border: var(--tpc-line);
+  --border: var(--tpc-hairline);
 
   --container: 80rem; /* 1280px */
-  --header-h: 4rem;
+  --header-h: 4.25rem;
+  --gutter: clamp(1.25rem, 3.2vw, 2.5rem); /* the design's 40px page gutter */
 }
 
 @theme inline {
@@ -37,29 +44,50 @@
   --color-border: var(--border);
 
   --color-tpc-black: var(--tpc-black);
+  --color-tpc-panel: var(--tpc-panel);
   --color-tpc-graphite: var(--tpc-graphite);
+  --color-tpc-stroke: var(--tpc-stroke);
+  --color-tpc-dim: var(--tpc-dim);
+  --color-tpc-body: var(--tpc-body);
   --color-tpc-cream: var(--tpc-cream);
   --color-tpc-white: var(--tpc-white);
   --color-accent: var(--accent);
   --color-accent-contrast: var(--accent-contrast);
 
-  --font-display: var(--font-anton);
-  --font-sans: var(--font-space);
-  --font-mono: var(--font-mono);
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html {
+  background: var(--background);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  /* `clip`, not `hidden`: hidden would turn <body> into a scroll container and
+     break the sticky header. */
+  overflow-x: clip;
 }
 
-/* Display type: Anton is a single-weight condensed grotesque. */
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+input {
+  font: inherit;
+}
+
+/* Display type: the design sets headings in the body face, bold, tight and
+   uppercase — no separate condensed display family. */
 .font-display {
-  font-family: var(--font-display), "Arial Narrow", sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
 }
 
@@ -71,26 +99,83 @@ body {
 
 /* Mono "timing-screen" technical labels: eyebrows, spec lines, section numbers. */
 .mono {
-  font-family: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
+  font-family: var(--font-mono);
   font-feature-settings: "tnum" 1;
 }
 
 /* Numbered editorial section eyebrow (e.g. "01 / Pole Position Picks"). */
 .section-label {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-/* Utility: dark editorial section on the black canvas. */
+/* Utility: raised editorial band, one step off the page canvas. */
 .section-dark {
-  background: var(--tpc-black);
-  color: var(--tpc-cream);
+  background: var(--tpc-panel);
+  color: var(--foreground);
 }
 
-/* Infinite ticker marquee (paused under prefers-reduced-motion below). */
+/* The design's page gutter, used by the full-bleed home sections. */
+.gutter {
+  padding-inline: var(--gutter);
+}
+
+/* ---- Motion ------------------------------------------------------- */
+
+@keyframes tpc-rise {
+  from {
+    transform: translate3d(0, 106%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes tpc-fade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes tpc-slide {
+  from {
+    opacity: 0;
+    transform: translate3d(-24px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero racing line: two dashes chasing each other along the track path.
+   Driven by CSS (not SMIL) so the reduced-motion rule below can stop them. */
+@keyframes tpc-trail {
+  from {
+    stroke-dashoffset: 170;
+  }
+  to {
+    stroke-dashoffset: -830;
+  }
+}
+
+@keyframes tpc-trail-lag {
+  from {
+    stroke-dashoffset: -140;
+  }
+  to {
+    stroke-dashoffset: -1140;
+  }
+}
+
 @keyframes tpc-marquee {
   from {
     transform: translateX(0);
@@ -99,13 +184,29 @@ body {
     transform: translateX(-50%);
   }
 }
+
 .marquee-track {
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
   min-width: 100%;
-  animation: tpc-marquee 30s linear infinite;
+  animation: tpc-marquee 38s linear infinite;
   will-change: transform;
+}
+
+/* Scroll reveal: sections start displaced and are released by an
+   IntersectionObserver (components/ui/Reveal.tsx) adding [data-revealed]. */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1),
+    transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+[data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -116,5 +217,10 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }

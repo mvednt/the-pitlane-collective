@@ -41,7 +41,7 @@ export function MegaMenuPanel({
           <Link
             href={menu.feature.href}
             onClick={onNavigate}
-            className="group relative hidden aspect-[4/3] w-72 shrink-0 overflow-hidden rounded-lg md:block"
+            className="group relative hidden aspect-[4/3] w-72 shrink-0 overflow-hidden md:block"
           >
             <Image
               src={menu.feature.image}

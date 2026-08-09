@@ -41,8 +41,8 @@ export function WishlistView() {
       <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i}>
-            <div className="aspect-[4/5] animate-pulse rounded-lg bg-black/5" />
-            <div className="mt-3 h-3 w-2/3 animate-pulse rounded bg-black/5" />
+            <div className="aspect-[4/5] animate-pulse bg-black/5" />
+            <div className="mt-3 h-3 w-2/3 animate-pulse bg-black/5" />
           </div>
         ))}
       </div>
@@ -51,7 +51,7 @@ export function WishlistView() {
 
   if (products.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-border py-20 text-center">
+      <div className="border border-dashed border-border py-20 text-center">
         <p className="text-muted">Your wishlist is empty.</p>
         <Link
           href="/shop"
@@ -75,7 +75,7 @@ export function WishlistView() {
               href={`/products/${product.handle}`}
               className="group block"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-tpc-white">
+              <div className="relative aspect-[4/5] overflow-hidden bg-tpc-panel">
                 {product.featuredImage ? (
                   <Image
                     src={product.featuredImage.url}
@@ -113,14 +113,14 @@ export function WishlistView() {
                   addItem(variant.id, 1);
                   remove(product.handle);
                 }}
-                className="flex-1 rounded-md bg-tpc-black py-2 text-xs font-semibold uppercase tracking-wide text-tpc-cream disabled:opacity-40"
+                className="flex-1 bg-accent py-2 text-xs font-semibold uppercase tracking-wide text-accent-contrast disabled:opacity-40"
               >
                 {variant ? "Move to cart" : "Sold out"}
               </button>
               <button
                 type="button"
                 onClick={() => remove(product.handle)}
-                className="rounded-md border border-border px-3 py-2 text-xs hover:border-foreground"
+                className="border border-border px-3 py-2 text-xs hover:border-foreground"
                 aria-label={`Remove ${product.title} from wishlist`}
               >
                 Remove

@@ -30,21 +30,21 @@ export function ConsentBanner() {
           <button
             type="button"
             onClick={openPreferences}
-            className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:border-foreground"
+            className="border border-border px-4 py-2 text-sm font-medium hover:border-foreground"
           >
             Preferences
           </button>
           <button
             type="button"
             onClick={rejectNonEssential}
-            className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:border-foreground"
+            className="border border-border px-4 py-2 text-sm font-medium hover:border-foreground"
           >
             Reject non-essential
           </button>
           <button
             type="button"
             onClick={acceptAll}
-            className="rounded-md bg-tpc-black px-4 py-2 text-sm font-semibold uppercase tracking-wide text-tpc-cream"
+            className="bg-accent px-4 py-2 text-sm font-semibold uppercase tracking-wide text-accent-contrast"
           >
             Accept all
           </button>

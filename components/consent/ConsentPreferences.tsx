@@ -43,11 +43,11 @@ export function ConsentPreferences() {
         type="button"
         aria-label="Close preferences"
         onClick={closePreferences}
-        className="absolute inset-0 bg-tpc-black/50"
+        className="absolute inset-0 bg-tpc-black/70"
       />
       <div
         ref={panelRef}
-        className="absolute left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-surface shadow-xl"
+        className="absolute left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-surface shadow-xl"
       >
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <h2 className="font-display text-lg tracking-tight">
@@ -98,7 +98,7 @@ export function ConsentPreferences() {
               save({ analytics, marketing });
               closePreferences();
             }}
-            className="flex-1 rounded-md border border-border py-3 text-sm font-semibold"
+            className="flex-1 border border-border py-3 text-sm font-semibold"
           >
             Save choices
           </button>
@@ -108,7 +108,7 @@ export function ConsentPreferences() {
               acceptAll();
               closePreferences();
             }}
-            className="flex-1 rounded-md bg-tpc-black py-3 text-sm font-semibold uppercase tracking-wide text-tpc-cream"
+            className="flex-1 bg-accent py-3 text-sm font-semibold uppercase tracking-wide text-accent-contrast"
           >
             Accept all
           </button>

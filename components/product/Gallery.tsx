@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { Image as ProductImage } from "@/lib/shopify/types";
+import { useProductMedia } from "./ProductMediaContext";
 
 export function Gallery({
   images,
@@ -11,12 +12,29 @@ export function Gallery({
   images: ProductImage[];
   title: string;
 }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const active = images[activeIndex] ?? null;
+  const [activeUrl, setActiveUrl] = useState<string | null>(
+    images[0]?.url ?? null,
+  );
+
+  // Follow the purchase column's variant selection: when the shopper switches
+  // colour, jump to that variant's image (if we're showing it). Handled by
+  // adjusting state during render — the "storing info from previous renders"
+  // pattern — rather than an effect, so the gallery never paints a stale frame.
+  const media = useProductMedia();
+  const [seenColourUrl, setSeenColourUrl] = useState(media?.activeImageUrl);
+  if (media?.activeImageUrl !== seenColourUrl) {
+    setSeenColourUrl(media?.activeImageUrl);
+    if (media?.activeImageUrl && images.some((i) => i.url === media.activeImageUrl)) {
+      setActiveUrl(media.activeImageUrl);
+    }
+  }
+
+  const active =
+    images.find((i) => i.url === activeUrl) ?? images[0] ?? null;
 
   return (
     <div>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-tpc-white ">
+      <div className="relative aspect-[4/5] overflow-hidden bg-tpc-panel ">
         {active ? (
           <Image
             src={active.url}
@@ -31,14 +49,14 @@ export function Gallery({
 
       {images.length > 1 ? (
         <div className="mt-3 grid grid-cols-5 gap-3">
-          {images.map((image, index) => (
+          {images.map((image) => (
             <button
               key={image.url}
               type="button"
-              onClick={() => setActiveIndex(index)}
-              className={`relative aspect-square overflow-hidden rounded-md border ${
-                index === activeIndex
-                  ? "border-tpc-black"
+              onClick={() => setActiveUrl(image.url)}
+              className={`relative aspect-square overflow-hidden border ${
+                image.url === active?.url
+                  ? "border-tpc-white"
                   : "border-transparent"
               }`}
             >

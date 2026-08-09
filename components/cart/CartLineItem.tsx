@@ -23,7 +23,7 @@ export function CartLineItem({ line }: { line: CartLine }) {
     <li className="flex gap-4 py-4">
       <Link
         href={`/products/${line.merchandise.product.handle}`}
-        className="relative h-24 w-20 shrink-0 overflow-hidden rounded-md bg-tpc-white"
+        className="relative h-24 w-20 shrink-0 overflow-hidden bg-tpc-panel"
       >
         {line.merchandise.image ? (
           <Image
@@ -61,7 +61,7 @@ export function CartLineItem({ line }: { line: CartLine }) {
         </div>
 
         <div className="mt-2 flex items-center justify-between">
-          <div className="flex items-center rounded-md border border-border">
+          <div className="flex items-center border border-border">
             <button
               type="button"
               disabled={isPending}

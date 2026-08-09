@@ -127,9 +127,9 @@ export function FilterControls({
                   type="button"
                   onClick={() => onToggle("sizes", s)}
                   className={cn(
-                    "min-w-10 rounded-md border px-2.5 py-1.5 text-xs tabular transition-colors",
+                    "min-w-10 border px-2.5 py-1.5 text-xs tabular transition-colors",
                     active
-                      ? "border-tpc-black bg-tpc-black text-tpc-cream"
+                      ? "border-accent bg-accent text-accent-contrast"
                       : "border-border hover:border-foreground",
                   )}
                   aria-pressed={active}
@@ -168,7 +168,7 @@ export function FilterControls({
             onChange={(e) =>
               onPrice(e.target.value ? Number(e.target.value) : null, filters.priceMax)
             }
-            className="w-full rounded-md border border-border bg-surface px-2 py-1.5 tabular outline-none focus:border-accent"
+            className="w-full border border-border bg-surface px-2 py-1.5 tabular outline-none focus:border-accent"
             aria-label="Minimum price"
           />
           <span className="text-muted">–</span>
@@ -182,7 +182,7 @@ export function FilterControls({
             onChange={(e) =>
               onPrice(filters.priceMin, e.target.value ? Number(e.target.value) : null)
             }
-            className="w-full rounded-md border border-border bg-surface px-2 py-1.5 tabular outline-none focus:border-accent"
+            className="w-full border border-border bg-surface px-2 py-1.5 tabular outline-none focus:border-accent"
             aria-label="Maximum price"
           />
         </div>

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { track } from "@/lib/analytics/client";
-import { cn } from "@/lib/utils";
 
 /**
  * Newsletter capture (spec §8K). This is a UI + client-validation shell only:
@@ -10,15 +9,9 @@ import { cn } from "@/lib/utils";
  * onSubmit to Shopify customer marketing consent or an email provider in a
  * later phase — clearly a placeholder until then.
  */
-export function NewsletterForm({
-  variant = "onLight",
-}: {
-  variant?: "onLight" | "onDark";
-}) {
+export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
-
-  const onDark = variant === "onDark";
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -28,39 +21,33 @@ export function NewsletterForm({
     setDone(true);
   }
 
-  if (done) {
-    return (
-      <p className={cn("text-sm", onDark ? "text-tpc-cream/80" : "text-foreground/80")}>
-        You&apos;re on the grid. Watch your inbox for the next drop.
-      </p>
-    );
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="flex w-full max-w-sm gap-2">
-      <label htmlFor={`newsletter-${variant}`} className="sr-only">
+    <form onSubmit={handleSubmit} className="flex min-w-0 flex-wrap">
+      <label htmlFor="newsletter-email" className="sr-only">
         Email address
       </label>
       <input
-        id={`newsletter-${variant}`}
+        id="newsletter-email"
         type="email"
         required
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="your@email.com"
-        className={cn(
-          "min-w-0 flex-1 rounded-md border px-3 py-2 text-sm outline-none focus:border-accent",
-          onDark
-            ? "border-tpc-cream/25 bg-transparent text-tpc-cream placeholder:text-tpc-cream/40"
-            : "border-border bg-surface text-foreground placeholder:text-muted",
-        )}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          setDone(false);
+        }}
+        placeholder="YOUR EMAIL ADDRESS"
+        className="mono h-16 min-w-0 flex-[1_1_13.75rem] border border-tpc-stroke bg-tpc-black px-5.5 text-[0.8rem] tracking-[0.16em] text-tpc-white outline-none placeholder:text-tpc-dim focus:border-accent"
       />
       <button
         type="submit"
-        className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-contrast transition-opacity hover:opacity-90"
+        className="mono h-16 flex-none cursor-pointer border-none bg-accent px-10 text-[0.8rem] font-bold uppercase tracking-[0.16em] text-accent-contrast transition-colors hover:bg-tpc-white hover:text-tpc-black"
       >
-        Subscribe
+        {done ? "Joined" : "Join"}
       </button>
+
+      <p aria-live="polite" className="mono w-full pt-3 text-[0.75rem] uppercase tracking-[0.16em] text-muted">
+        {done ? "You're on the grid. Watch your inbox for the next drop." : ""}
+      </p>
     </form>
   );
 }

@@ -46,7 +46,7 @@ export function FilterChips({
           key={`${chip.key}-${chip.value}`}
           type="button"
           onClick={() => onRemove(chip.key, chip.value)}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs hover:border-foreground"
+          className="inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1 text-xs hover:border-foreground"
         >
           {chip.label}
           <span aria-hidden="true" className="text-muted">×</span>
@@ -58,7 +58,7 @@ export function FilterChips({
         <button
           type="button"
           onClick={onClearPrice}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs hover:border-foreground"
+          className="inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1 text-xs hover:border-foreground"
         >
           {priceLabel}
           <span aria-hidden="true" className="text-muted">×</span>
@@ -69,7 +69,7 @@ export function FilterChips({
         <button
           type="button"
           onClick={onClearInStock}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs hover:border-foreground"
+          className="inline-flex items-center gap-1.5 border border-border bg-surface px-3 py-1 text-xs hover:border-foreground"
         >
           In stock
           <span aria-hidden="true" className="text-muted">×</span>

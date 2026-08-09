@@ -33,7 +33,7 @@ None in this app — Razorpay lives entirely inside Shopify checkout.
 ## Verification
 - Place a **test order** through the Shopify-hosted checkout.
 - Confirm the order appears in Admin → **Orders**, inventory decremented, and the
-  order-confirmation email was sent (see [email-notifications.md](email-notifications.md)).
+  order-confirmation email was sent (Admin → **Settings → Notifications**).
 
 ## Common failure cases
 - **Razorpay not listed** — region/market or account not eligible; check with

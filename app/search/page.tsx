@@ -28,7 +28,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
       />
       <div className="mx-auto max-w-6xl px-6 py-10">
         <form action="/search" className="mb-10 flex max-w-md gap-2">
-          <div className="flex min-w-0 flex-1 items-center gap-2 rounded-md border border-border bg-surface px-3 focus-within:border-accent">
+          <div className="flex min-w-0 flex-1 items-center gap-2 border border-border bg-surface px-3 focus-within:border-accent">
             <SearchIcon className="h-4 w-4 text-muted" />
             <input
               type="search"
@@ -41,7 +41,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
           </div>
           <button
             type="submit"
-            className="rounded-md bg-tpc-black px-4 py-2 text-sm font-semibold text-tpc-cream"
+            className="bg-accent px-4 py-2 text-sm font-semibold text-accent-contrast transition-colors hover:bg-tpc-white hover:text-tpc-black"
           >
             Search
           </button>
@@ -57,7 +57,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
                 <Link
                   key={term}
                   href={`/search?q=${encodeURIComponent(term)}`}
-                  className="rounded-full border border-border px-3 py-1.5 text-sm hover:border-foreground"
+                  className="border border-border px-3 py-1.5 text-sm hover:border-foreground"
                 >
                   {term}
                 </Link>
@@ -72,7 +72,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
                 <Link
                   key={term}
                   href={`/search?q=${encodeURIComponent(term)}`}
-                  className="rounded-full border border-border px-3 py-1.5 text-sm hover:border-foreground"
+                  className="border border-border px-3 py-1.5 text-sm hover:border-foreground"
                 >
                   {term}
                 </Link>

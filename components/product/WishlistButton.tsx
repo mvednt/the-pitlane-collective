@@ -41,7 +41,7 @@ export function WishlistButton({
         aria-pressed={saved}
         aria-label={label}
         className={cn(
-          "flex w-full items-center justify-center gap-2 rounded-md border py-3 text-sm font-semibold transition-colors",
+          "flex w-full items-center justify-center gap-2 border py-3 text-sm font-semibold transition-colors",
           saved
             ? "border-accent text-accent"
             : "border-border hover:border-foreground",

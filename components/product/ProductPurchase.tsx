@@ -6,6 +6,7 @@ import { track } from "@/lib/analytics/client";
 import { colourHex } from "@/lib/colours";
 import { formatMoney } from "@/lib/utils";
 import type { Product, ProductVariant } from "@/lib/shopify/types";
+import { useProductMedia } from "./ProductMediaContext";
 import { SizeGuide } from "./SizeGuide";
 import { WishlistButton } from "./WishlistButton";
 
@@ -46,6 +47,14 @@ export function ProductPurchase({ product }: { product: Product }) {
     () => findVariant(product.variants, selected),
     [product.variants, selected],
   );
+
+  // Publish the selected variant's image so the gallery can follow the colour.
+  const media = useProductMedia();
+  const setActiveImageUrl = media?.setActiveImageUrl;
+  const activeImageUrl = activeVariant?.image?.url ?? null;
+  useEffect(() => {
+    if (activeImageUrl) setActiveImageUrl?.(activeImageUrl);
+  }, [activeImageUrl, setActiveImageUrl]);
 
   // Reveal the sticky mobile bar once the inline CTA scrolls out of view.
   useEffect(() => {
@@ -139,8 +148,8 @@ export function ProductPurchase({ product }: { product: Product }) {
                       onClick={() =>
                         choose(option.name, value)
                       }
-                      className={`relative h-9 w-9 rounded-full ring-1 ring-black/10 transition-transform hover:scale-105 ${
-                        isSelected ? "ring-2 ring-offset-2 ring-tpc-black" : ""
+                      className={`relative h-9 w-9 rounded-full ring-1 ring-white/15 transition-transform hover:scale-105 ${
+                        isSelected ? "ring-2 ring-tpc-white ring-offset-2 ring-offset-background" : ""
                       } ${!available ? "opacity-45" : ""}`}
                       style={{ backgroundColor: colourHex(value) }}
                     />
@@ -156,9 +165,9 @@ export function ProductPurchase({ product }: { product: Product }) {
                     onClick={() =>
                       choose(option.name, value)
                     }
-                    className={`min-w-11 rounded-md border px-3 py-2 text-sm tabular transition-colors ${
+                    className={`min-w-11  border px-3 py-2 text-sm tabular transition-colors ${
                       isSelected
-                        ? "border-tpc-black bg-tpc-black text-tpc-cream"
+                        ? "border-tpc-white text-tpc-white"
                         : "border-border hover:border-foreground"
                     } ${!available ? "opacity-45 line-through" : ""}`}
                   >
@@ -176,7 +185,7 @@ export function ProductPurchase({ product }: { product: Product }) {
           type="button"
           disabled={!canAdd || isPending}
           onClick={addCurrent}
-          className="flex-1 rounded-md bg-tpc-black py-3.5 text-sm font-semibold uppercase tracking-wide text-tpc-cream transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex-1 bg-accent py-3.5 text-sm font-semibold uppercase tracking-wide text-accent-contrast transition-colors hover:bg-tpc-white hover:text-tpc-black disabled:cursor-not-allowed disabled:opacity-40"
         >
           {ctaLabel(activeVariant, isPending)}
         </button>
@@ -215,7 +224,7 @@ export function ProductPurchase({ product }: { product: Product }) {
               type="button"
               disabled={!canAdd || isPending}
               onClick={addCurrent}
-              className="shrink-0 rounded-md bg-tpc-black px-6 py-3 text-sm font-semibold uppercase tracking-wide text-tpc-cream disabled:opacity-40"
+              className="shrink-0 bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-accent-contrast disabled:opacity-40"
             >
               {ctaLabel(activeVariant, isPending)}
             </button>

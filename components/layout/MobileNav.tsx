@@ -35,7 +35,7 @@ export function MobileNav({
         type="button"
         aria-label="Close menu"
         onClick={onClose}
-        className="absolute inset-0 bg-black/40"
+        className="absolute inset-0 bg-tpc-black/70"
       />
       <nav
         ref={panelRef}
@@ -43,7 +43,7 @@ export function MobileNav({
         className="absolute left-0 top-0 flex h-full w-full max-w-xs flex-col bg-surface text-foreground"
       >
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
-          <Logo variant="onLight" />
+          <Logo />
           <button type="button" onClick={onClose} aria-label="Close menu">
             <CloseIcon />
           </button>
@@ -54,7 +54,7 @@ export function MobileNav({
               <Link
                 href={item.href}
                 onClick={onClose}
-                className="block py-3 font-display text-xl tracking-tight"
+                className="mono block py-3 text-sm font-bold uppercase tracking-[0.18em] transition-colors hover:text-accent"
               >
                 {item.label}
               </Link>
@@ -62,10 +62,10 @@ export function MobileNav({
           ))}
         </ul>
         <div className="mt-auto border-t border-border px-5 py-4 text-sm">
-          <Link href="/wishlist" onClick={onClose} className="block py-1.5">
+          <Link href="/wishlist" onClick={onClose} className="mono block py-1.5 text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-accent">
             Wishlist
           </Link>
-          <Link href="/search" onClick={onClose} className="block py-1.5">
+          <Link href="/search" onClick={onClose} className="mono block py-1.5 text-xs uppercase tracking-[0.18em] text-muted transition-colors hover:text-accent">
             Search
           </Link>
         </div>

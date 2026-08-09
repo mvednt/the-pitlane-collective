@@ -178,7 +178,7 @@ export function SearchOverlay({
         type="button"
         aria-label="Close search"
         onClick={onClose}
-        className="absolute inset-0 bg-tpc-black/50"
+        className="absolute inset-0 bg-tpc-black/70"
       />
 
       <div
@@ -236,7 +236,7 @@ export function SearchOverlay({
                         <button
                           type="button"
                           onClick={() => submitQuery(term)}
-                          className="rounded-full border border-border px-3 py-1.5 text-sm hover:border-foreground"
+                          className="border border-border px-3 py-1.5 text-sm hover:border-foreground"
                         >
                           {term}
                         </button>
@@ -256,7 +256,7 @@ export function SearchOverlay({
                       <button
                         type="button"
                         onClick={() => submitQuery(term)}
-                        className="rounded-full border border-border px-3 py-1.5 text-sm hover:border-foreground"
+                        className="border border-border px-3 py-1.5 text-sm hover:border-foreground"
                       >
                         {term}
                       </button>
@@ -310,10 +310,10 @@ function SearchSkeleton() {
     <div className="space-y-3 py-2">
       {Array.from({ length: 4 }).map((_, i) => (
         <div key={i} className="flex items-center gap-3">
-          <div className="h-14 w-12 animate-pulse rounded bg-black/5" />
+          <div className="h-14 w-12 animate-pulse bg-black/5" />
           <div className="flex-1 space-y-2">
-            <div className="h-3 w-1/2 animate-pulse rounded bg-black/5" />
-            <div className="h-3 w-1/4 animate-pulse rounded bg-black/5" />
+            <div className="h-3 w-1/2 animate-pulse bg-black/5" />
+            <div className="h-3 w-1/4 animate-pulse bg-black/5" />
           </div>
         </div>
       ))}
@@ -344,7 +344,7 @@ function SearchResults({
       <button
         type="button"
         onClick={onAll}
-        className={`mb-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm font-medium ${
+        className={`mb-2 flex w-full items-center gap-2  px-2 py-2 text-left text-sm font-medium ${
           navItems[highlight]?.kind === "all" ? "bg-black/5" : ""
         }`}
       >
@@ -372,11 +372,11 @@ function SearchResults({
                       });
                       onProduct(href);
                     }}
-                    className={`flex w-full items-center gap-3 rounded-md px-2 py-2 text-left ${
+                    className={`flex w-full items-center gap-3  px-2 py-2 text-left ${
                       highlightedHref === href ? "bg-black/5" : "hover:bg-black/5"
                     }`}
                   >
-                    <span className="relative h-14 w-12 shrink-0 overflow-hidden rounded bg-tpc-white">
+                    <span className="relative h-14 w-12 shrink-0 overflow-hidden bg-tpc-panel">
                       {p.image ? (
                         <Image
                           src={p.image}
@@ -422,7 +422,7 @@ function SearchResults({
                   <button
                     type="button"
                     onClick={() => onCollection(href)}
-                    className={`flex w-full items-center rounded-md px-2 py-2 text-left text-sm ${
+                    className={`flex w-full items-center  px-2 py-2 text-left text-sm ${
                       highlightedHref === href ? "bg-black/5" : "hover:bg-black/5"
                     }`}
                   >

@@ -37,7 +37,7 @@ export function CartDrawer() {
         type="button"
         aria-label="Close cart"
         onClick={closeDrawer}
-        className="absolute inset-0 bg-tpc-black/50"
+        className="absolute inset-0 bg-tpc-black/70"
       />
 
       <aside
@@ -107,7 +107,7 @@ export function CartDrawer() {
                   items: cart.totalQuantity,
                 })
               }
-              className="block w-full rounded-md bg-tpc-black py-3 text-center text-sm font-semibold uppercase tracking-wide text-tpc-cream transition-opacity hover:opacity-90"
+              className="block w-full bg-accent py-3 text-center text-sm font-semibold uppercase tracking-wide text-accent-contrast transition-colors hover:bg-tpc-white hover:text-tpc-black"
             >
               Checkout
             </Link>

@@ -87,11 +87,11 @@ export function SizeGuide({ productType }: { productType: string }) {
             type="button"
             aria-label="Close size guide"
             onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-tpc-black/50"
+            className="absolute inset-0 bg-tpc-black/70"
           />
           <div
             ref={panelRef}
-            className="absolute left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-surface shadow-xl"
+            className="absolute left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-surface shadow-xl"
           >
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
               <h2 className="font-display text-lg tracking-tight">Size Guide</h2>
@@ -106,9 +106,9 @@ export function SizeGuide({ productType }: { productType: string }) {
                   key={c.category}
                   type="button"
                   onClick={() => setActive(c.category)}
-                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                  className={` px-3 py-1.5 text-xs font-medium transition-colors ${
                     active === c.category
-                      ? "bg-tpc-black text-tpc-cream"
+                      ? "bg-accent text-accent-contrast"
                       : "border border-border hover:border-foreground"
                   }`}
                 >

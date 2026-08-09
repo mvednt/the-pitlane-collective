@@ -126,11 +126,11 @@ export function CollectionView({
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
-              className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-1.5 text-sm lg:hidden"
+              className="inline-flex items-center gap-2 border border-border px-3 py-1.5 text-sm lg:hidden"
             >
               Filters
               {count > 0 ? (
-                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[0.65rem] font-semibold tabular text-accent-contrast">
+                <span className="flex h-5 min-w-5 items-center justify-center bg-accent px-1 text-[0.65rem] font-semibold tabular text-accent-contrast">
                   {count}
                 </span>
               ) : null}
@@ -155,7 +155,7 @@ export function CollectionView({
 
         {/* Grid / empty state */}
         {filtered.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-border py-20 text-center">
+          <div className="border border-dashed border-border py-20 text-center">
             <p className="text-muted">No products match these filters.</p>
             <button
               type="button"
@@ -182,7 +182,7 @@ export function CollectionView({
                 <button
                   type="button"
                   onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                  className="rounded-md border border-tpc-black px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-colors hover:bg-tpc-black hover:text-tpc-cream"
+                  className="border border-tpc-stroke px-6 py-3 text-sm font-semibold uppercase tracking-wide transition-colors hover:border-tpc-white hover:bg-tpc-white hover:text-tpc-black"
                 >
                   Load more
                 </button>
@@ -199,9 +199,9 @@ export function CollectionView({
             type="button"
             aria-label="Close filters"
             onClick={() => setDrawerOpen(false)}
-            className="absolute inset-0 bg-tpc-black/50"
+            className="absolute inset-0 bg-tpc-black/70"
           />
-          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-surface">
+          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto bg-surface">
             <div className="sticky top-0 flex items-center justify-between border-b border-border bg-surface px-5 py-4">
               <h2 className="font-display text-lg tracking-tight">Filters</h2>
               <button type="button" onClick={() => setDrawerOpen(false)} aria-label="Close filters">
@@ -213,14 +213,14 @@ export function CollectionView({
               <button
                 type="button"
                 onClick={clearAll}
-                className="flex-1 rounded-md border border-border py-3 text-sm font-semibold"
+                className="flex-1 border border-border py-3 text-sm font-semibold"
               >
                 Clear all
               </button>
               <button
                 type="button"
                 onClick={() => setDrawerOpen(false)}
-                className="flex-1 rounded-md bg-tpc-black py-3 text-sm font-semibold uppercase tracking-wide text-tpc-cream"
+                className="flex-1 bg-accent py-3 text-sm font-semibold uppercase tracking-wide text-accent-contrast"
               >
                 Show {filtered.length}
               </button>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Anton, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import { getCart } from "@/app/actions/cart";
@@ -15,24 +14,10 @@ import { WishlistProvider } from "@/context/wishlist-context";
 import { siteConfig } from "@/lib/config/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo/jsonld";
 
-const anton = Anton({
-  weight: "400",
-  variable: "--font-anton",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
+/**
+ * Type is set in the system Helvetica/Arial stack with a system monospace for
+ * technical labels, matching the design file — no webfonts to download.
+ */
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -54,10 +39,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const cart = await getCart();
 
   return (
-    <html
-      lang="en"
-      className={`${anton.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full`}
-    >
+    <html lang="en" className="h-full">
       <body className="flex min-h-full flex-col">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <ConsentProvider>

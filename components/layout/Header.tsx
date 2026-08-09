@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { useWishlist } from "@/context/wishlist-context";
 import { mainMenu } from "@/lib/config/site";
-import { cn } from "@/lib/utils";
 import { BagIcon, HeartIcon, MenuIcon, SearchIcon } from "@/components/ui/icons";
 import { SearchOverlay } from "@/components/search/SearchOverlay";
 import { AnnouncementBar } from "./AnnouncementBar";
@@ -14,92 +13,92 @@ import { Logo } from "./Logo";
 import { MegaMenuPanel } from "./MegaMenu";
 import { MobileNav } from "./MobileNav";
 
+/** Mono utility voice used across the nav (design file). */
+const NAV_LABEL =
+  "mono text-[0.8rem] font-bold uppercase tracking-[0.18em] whitespace-nowrap";
+
 export function Header() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
   const { cart, openDrawer } = useCart();
   const { count: wishlistCount, hydrated: wishlistHydrated } = useWishlist();
   const itemCount = cart?.totalQuantity ?? 0;
 
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Solid (cream) header everywhere except at the top of the dark homepage hero.
-  const solid = !isHome || scrolled || openMenu !== null;
 
   return (
     <>
       <AnnouncementBar />
       <header
-        className={cn(
-          "sticky top-0 z-40 transition-colors duration-200",
-          solid
-            ? "border-b border-border bg-surface text-foreground"
-            : "bg-transparent text-tpc-cream",
-        )}
+        className="sticky top-0 z-40 bg-tpc-black text-tpc-white"
         onMouseLeave={() => setOpenMenu(null)}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
-          {/* Left: mobile menu + desktop nav */}
-          <div className="flex flex-1 items-center gap-2">
+        <div className="gutter flex flex-wrap items-center justify-between gap-x-7 gap-y-3.5 py-5">
+          {/* Left: mobile menu trigger + lockup */}
+          <div className="flex flex-none items-center gap-4 [animation:tpc-slide_.6s_cubic-bezier(.2,.9,.3,1)_both]">
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
-              className="md:hidden"
+              className="-ml-1 p-1 hover:text-accent md:hidden"
             >
               <MenuIcon />
             </button>
+            <Link href="/" aria-label="The Pitlane Collective home">
+              <Logo />
+            </Link>
+          </div>
 
-            <nav className="hidden items-center gap-6 md:flex">
-              {mainMenu.map((item) => (
+          {/* Centre: primary navigation */}
+          <nav
+            aria-label="Primary"
+            className="hidden min-w-0 flex-1 flex-wrap items-center justify-center gap-x-10 gap-y-2.5 md:flex"
+          >
+            {mainMenu.map((item) => {
+              const active =
+                pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
                 <div
                   key={item.href}
-                  onMouseEnter={() => setOpenMenu(item.columns ? item.label : null)}
+                  onMouseEnter={() =>
+                    setOpenMenu(item.columns ? item.label : null)
+                  }
                 >
                   <Link
                     href={item.href}
-                    className="whitespace-nowrap text-[0.75rem] font-medium uppercase tracking-[0.06em] transition-colors hover:text-accent"
+                    className={`${NAV_LABEL} transition-colors ${
+                      active
+                        ? "text-tpc-white"
+                        : "text-[#9c9fa2] hover:text-tpc-white"
+                    }`}
                   >
                     {item.label}
                   </Link>
                 </div>
-              ))}
-            </nav>
-          </div>
-
-          {/* Center: logo */}
-          <Link href="/" aria-label="The Pitlane Collective home">
-            <Logo variant={solid ? "onLight" : "onDark"} />
-          </Link>
+              );
+            })}
+          </nav>
 
           {/* Right: utilities */}
-          <div className="flex flex-1 items-center justify-end gap-4">
+          <div className="ml-auto flex flex-none items-center gap-5 text-[#9c9fa2]">
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Search"
-              className="hover:text-accent"
+              className={`${NAV_LABEL} transition-colors hover:text-tpc-white`}
             >
-              <SearchIcon />
+              <SearchIcon className="h-5 w-5 sm:hidden" />
+              <span className="hidden sm:inline">Search</span>
             </button>
             <Link
               href="/wishlist"
               aria-label={`Wishlist${wishlistHydrated && wishlistCount ? `, ${wishlistCount} items` : ""}`}
-              className="relative hidden hover:text-accent sm:block"
+              className="relative hidden transition-colors hover:text-tpc-white sm:block"
             >
               <HeartIcon />
               {wishlistHydrated && wishlistCount > 0 ? (
-                <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[0.6rem] font-semibold tabular text-accent-contrast">
+                <span className="mono absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center bg-accent px-1 text-[0.6rem] font-bold tabular text-accent-contrast">
                   {wishlistCount}
                 </span>
               ) : null}
@@ -108,14 +107,10 @@ export function Header() {
               type="button"
               onClick={openDrawer}
               aria-label={`Cart, ${itemCount} items`}
-              className="relative hover:text-accent"
+              className={`${NAV_LABEL} flex items-center gap-2 text-tpc-white transition-colors hover:text-accent`}
             >
               <BagIcon />
-              {itemCount > 0 ? (
-                <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[0.6rem] font-semibold tabular text-accent-contrast">
-                  {itemCount}
-                </span>
-              ) : null}
+              <span className="tabular">({itemCount})</span>
             </button>
           </div>
         </div>

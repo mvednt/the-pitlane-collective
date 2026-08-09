@@ -34,7 +34,7 @@ export default function Error({
       <button
         type="button"
         onClick={reset}
-        className="mt-8 rounded-md bg-tpc-black px-5 py-3 text-sm font-semibold uppercase tracking-wide text-tpc-cream"
+        className="mt-8 bg-accent px-5 py-3 text-sm font-semibold uppercase tracking-wide text-accent-contrast transition-colors hover:bg-tpc-white hover:text-tpc-black"
       >
         Try again
       </button>

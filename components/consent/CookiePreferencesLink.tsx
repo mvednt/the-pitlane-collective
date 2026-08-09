@@ -9,9 +9,9 @@ export function CookiePreferencesLink() {
     <button
       type="button"
       onClick={openPreferences}
-      className="text-sm text-tpc-cream/75 transition-colors hover:text-accent"
+      className="mono cursor-pointer text-[0.75rem] uppercase tracking-[0.16em] text-tpc-dim transition-colors hover:text-tpc-white"
     >
-      Cookie preferences
+      Cookie settings
     </button>
   );
 }

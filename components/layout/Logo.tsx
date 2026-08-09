@@ -2,63 +2,43 @@ import Image from "next/image";
 import { brandConfig } from "@/lib/config/site";
 
 /**
- * TPC wordmark.
+ * TPC lockup: the accent tick followed by the supplied wordmark artwork
+ * (public/brand/logo-lockup.png), exactly as the design file composes it.
  *
- * By default this renders a typographic placeholder that matches the supplied
- * wordmark composition. When you have your own logo files:
- *   1. Drop them at public/brand/logo-dark.svg and public/brand/logo-light.svg
- *      (.png also fine — update the paths in lib/config/site.ts › brandConfig).
- *   2. Set brandConfig.useLogoFiles = true in lib/config/site.ts.
- * (Client-safe: no filesystem access, so it works inside the client Header.)
+ * The artwork is bone + racing red, drawn for the dark canvas the whole
+ * storefront now sits on, so there is a single variant. `variant` is kept on
+ * the props for callers that still pass it; swap `brandConfig.logoOnLight` in
+ * if a light surface is ever introduced.
  */
 
 type Variant = "onDark" | "onLight";
 
 export function Logo({
-  variant = "onLight",
+  variant = "onDark",
   className = "",
 }: {
   variant?: Variant;
   className?: string;
 }) {
-  if (brandConfig.useLogoFiles) {
-    const src =
-      variant === "onDark"
-        ? brandConfig.logoOnDark
-        : brandConfig.logoOnLight;
-    return (
-      <span className={`inline-flex items-center ${className}`}>
-        <Image
-          src={src}
-          alt="The Pitlane Collective"
-          width={220}
-          height={36}
-          priority
-          className="h-6 w-auto"
-        />
-      </span>
-    );
-  }
-
-  const wordmarkColor = variant === "onDark" ? "text-tpc-cream" : "text-tpc-black";
-  const divider = variant === "onDark" ? "bg-tpc-cream/40" : "bg-tpc-black/25";
+  const src =
+    variant === "onLight" && brandConfig.logoOnLight
+      ? brandConfig.logoOnLight
+      : brandConfig.logoOnDark;
 
   return (
-    <span
-      className={`inline-flex items-center gap-2 ${className}`}
-      aria-label="The Pitlane Collective"
-    >
-      <span className={`text-[0.6rem] font-medium tracking-[0.35em] ${wordmarkColor}`}>
-        THE
-      </span>
-      <span className={`h-4 w-px ${divider}`} aria-hidden="true" />
-      <span className={`font-display text-lg leading-none tracking-tight ${wordmarkColor}`}>
-        PITLANE
-      </span>
-      <span className={`h-4 w-px ${divider}`} aria-hidden="true" />
-      <span className="text-[0.6rem] font-semibold tracking-[0.3em] text-accent">
-        COLLECTIVE
-      </span>
+    <span className={`inline-flex items-center gap-3 sm:gap-4 ${className}`}>
+      <span
+        aria-hidden="true"
+        className="block h-[22px] w-[5px] bg-accent sm:h-[26px]"
+      />
+      <Image
+        src={src}
+        alt="The Pitlane Collective"
+        width={2216}
+        height={289}
+        priority
+        className="block h-[13px] w-auto sm:h-[17px]"
+      />
     </span>
   );
 }

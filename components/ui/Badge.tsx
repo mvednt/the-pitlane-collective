@@ -2,10 +2,10 @@ import type { ProductBadge } from "@/lib/shopify/types";
 import { cn } from "@/lib/utils";
 
 const STYLES: Record<ProductBadge, string> = {
-  New: "bg-tpc-black text-tpc-cream",
-  Bestseller: "bg-tpc-black text-tpc-cream",
+  New: "bg-accent text-accent-contrast",
+  Bestseller: "bg-tpc-white text-tpc-black",
   Limited: "bg-accent text-accent-contrast",
-  "Low Stock": "bg-tpc-cream text-tpc-black ring-1 ring-tpc-black/15",
+  "Low Stock": "bg-transparent text-tpc-white ring-1 ring-tpc-white/40",
 };
 
 export function Badge({
@@ -18,7 +18,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded px-2 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.12em]",
+        "inline-flex items-center px-2 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.12em]",
         STYLES[badge],
         className,
       )}
