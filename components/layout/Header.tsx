@@ -41,7 +41,7 @@ export function Header() {
               type="button"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
-              className="-ml-1 p-1 hover:text-accent md:hidden"
+              className="-ml-1 p-1 hover:text-accent lg:hidden"
             >
               <MenuIcon />
             </button>
@@ -53,7 +53,7 @@ export function Header() {
           {/* Centre: primary navigation */}
           <nav
             aria-label="Primary"
-            className="hidden min-w-0 flex-1 flex-wrap items-center justify-center gap-x-10 gap-y-2.5 md:flex"
+            className="hidden min-w-0 flex-1 flex-nowrap items-center justify-center gap-x-8 gap-y-2.5 lg:flex xl:gap-x-10"
           >
             {mainMenu.map((item) => {
               const active =

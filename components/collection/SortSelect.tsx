@@ -10,8 +10,8 @@ export function SortSelect({
   onChange: (value: SortKey) => void;
 }) {
   return (
-    <label className="flex items-center gap-2 text-sm">
-      <span className="text-muted">Sort</span>
+    <label className="flex shrink-0 items-center gap-2 text-sm">
+      <span className="hidden text-muted sm:inline">Sort</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as SortKey)}

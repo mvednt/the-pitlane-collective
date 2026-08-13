@@ -214,7 +214,7 @@ export function ProductPurchase({ product }: { product: Product }) {
 
       {/* Sticky mobile purchase bar */}
       {showSticky ? (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/95 backdrop-blur lg:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-surface/95 backdrop-blur md:hidden">
           <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium">{product.title}</p>

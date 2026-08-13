@@ -41,7 +41,7 @@ export default async function ProductPage(
   const related = await shopify.getRelatedProducts(handle, 6);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10 pb-28 lg:pb-16">
+    <div className="mx-auto max-w-6xl px-6 py-10 pb-28 md:pb-16">
       <TrackEvent
         event={{
           name: "view_item",
@@ -82,8 +82,8 @@ export default async function ProductPage(
       </nav>
 
       <ProductMediaProvider>
-        <div className="grid gap-12 lg:grid-cols-2">
-          <div className="lg:sticky lg:top-24 lg:self-start">
+        <div className="grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-12">
+          <div className="md:sticky md:top-24 md:self-start">
             <Gallery images={product.images} title={product.title} />
           </div>
 

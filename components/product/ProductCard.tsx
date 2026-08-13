@@ -57,7 +57,7 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="mono text-[0.65rem] uppercase tracking-[0.15em] text-muted">
           {product.productType}
         </p>
-        <div className="mt-0.5 flex items-baseline justify-between gap-2">
+        <div className="mt-0.5 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-2">
           <h3 className="text-sm font-medium">{product.title}</h3>
           <div className="flex items-baseline gap-1.5 whitespace-nowrap">
             {compareAt ? (

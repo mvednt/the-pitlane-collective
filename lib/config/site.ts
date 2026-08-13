@@ -107,17 +107,17 @@ export const lookbook = [
   {
     title: "Oversized",
     handle: "oversized",
-    image: "/mock/collections/oversized.svg",
+    image: "/mock/collections/oversized-2.svg",
   },
   {
     title: "Baby Tees",
     handle: "baby-tees",
-    image: "/mock/collections/baby-tees.svg",
+    image: "/mock/collections/baby-tees-2.svg",
   },
   {
     title: "Jerseys",
     handle: "jerseys",
-    image: "/mock/collections/jerseys.svg",
+    image: "/mock/collections/jerseys-2.svg",
   },
 ] as const;
 
@@ -131,7 +131,7 @@ export const story = {
     "Cut and sewn in India, in a fixed collection we keep in stock. Oversized tees, baby tees and jerseys — built to be worn, not saved for a race weekend.",
   ],
   cta: { label: "Read the full story", href: "/pages/about" },
-  image: "/mock/collections/new-drop.svg",
+  image: "/mock/collections/new-drop-2.svg",
 } as const;
 
 /** Newsletter (spec §8K). */

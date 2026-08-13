@@ -129,7 +129,7 @@ export function FeaturedShowcase({ tabs }: { tabs: ShowcaseTab[] }) {
       {/* Category switcher */}
       <div
         id="shop"
-        className="flex scroll-mt-24 flex-wrap items-stretch overflow-hidden border-y border-border bg-surface"
+        className="flex scroll-mt-24 items-stretch overflow-x-auto border-y border-border bg-surface [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden"
       >
         {tabs.map((t, i) => {
           const on = i === activeTab;
@@ -139,7 +139,7 @@ export function FeaturedShowcase({ tabs }: { tabs: ShowcaseTab[] }) {
               type="button"
               aria-pressed={on}
               onClick={() => selectTab(i)}
-              className={`mono flex-none cursor-pointer whitespace-nowrap px-8 py-5 text-[0.8rem] font-bold uppercase tracking-[0.18em] transition-colors ${
+              className={`mono flex-none cursor-pointer whitespace-nowrap px-5 py-4 text-[0.8rem] font-bold uppercase tracking-[0.18em] transition-colors sm:px-8 sm:py-5 ${
                 on
                   ? "bg-accent text-accent-contrast"
                   : "bg-transparent text-muted hover:text-tpc-white"

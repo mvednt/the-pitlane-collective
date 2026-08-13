@@ -45,22 +45,24 @@ export function CartProvider({
   function addItem(variantId: string, quantity = 1) {
     setError(null);
     startTransition(async () => {
-      try {
-        const updated = await addToCartAction(variantId, quantity);
-        setCart(updated);
-        setDrawerOpen(true);
-        const line = updated.lines.find((l) => l.merchandise.id === variantId);
-        if (line) {
-          track("add_to_cart", {
-            id: variantId,
-            title: line.merchandise.product.title,
-            price: Number(line.cost.totalAmount.amount) / line.quantity,
-            currency: line.cost.totalAmount.currencyCode,
-            quantity,
-          });
-        }
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "Couldn't add to cart.");
+      const result = await addToCartAction(variantId, quantity);
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
+      const updated = result.cart;
+      if (!updated) return;
+      setCart(updated);
+      setDrawerOpen(true);
+      const line = updated.lines.find((l) => l.merchandise.id === variantId);
+      if (line) {
+        track("add_to_cart", {
+          id: variantId,
+          title: line.merchandise.product.title,
+          price: Number(line.cost.totalAmount.amount) / line.quantity,
+          currency: line.cost.totalAmount.currencyCode,
+          quantity,
+        });
       }
     });
   }
@@ -68,12 +70,12 @@ export function CartProvider({
   function updateItem(lineId: string, quantity: number) {
     setError(null);
     startTransition(async () => {
-      try {
-        const updated = await updateCartLineAction(lineId, quantity);
-        setCart(updated);
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "Couldn't update the cart.");
+      const result = await updateCartLineAction(lineId, quantity);
+      if (!result.ok) {
+        setError(result.error);
+        return;
       }
+      setCart(result.cart);
     });
   }
 
@@ -81,17 +83,17 @@ export function CartProvider({
     setError(null);
     const removed = cart?.lines.find((l) => l.id === lineId);
     startTransition(async () => {
-      try {
-        const updated = await removeCartLineAction(lineId);
-        setCart(updated);
-        if (removed) {
-          track("remove_from_cart", {
-            id: removed.merchandise.id,
-            title: removed.merchandise.product.title,
-          });
-        }
-      } catch (e) {
-        setError(e instanceof Error ? e.message : "Couldn't remove the item.");
+      const result = await removeCartLineAction(lineId);
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
+      setCart(result.cart);
+      if (removed) {
+        track("remove_from_cart", {
+          id: removed.merchandise.id,
+          title: removed.merchandise.product.title,
+        });
       }
     });
   }

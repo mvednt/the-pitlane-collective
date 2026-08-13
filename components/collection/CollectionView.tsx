@@ -121,12 +121,12 @@ export function CollectionView({
 
       <div>
         {/* Toolbar */}
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-3">
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
-              className="inline-flex items-center gap-2 border border-border px-3 py-1.5 text-sm lg:hidden"
+              className="inline-flex shrink-0 items-center gap-2 border border-border px-3 py-1.5 text-sm lg:hidden"
             >
               Filters
               {count > 0 ? (
@@ -135,7 +135,7 @@ export function CollectionView({
                 </span>
               ) : null}
             </button>
-            <p className="text-sm text-muted tabular">
+            <p className="whitespace-nowrap text-sm text-muted tabular">
               {filtered.length} {filtered.length === 1 ? "product" : "products"}
             </p>
           </div>
