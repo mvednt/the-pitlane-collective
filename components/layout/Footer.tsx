@@ -7,8 +7,6 @@ const paymentMethods = ["UPI", "Visa", "Mastercard", "RuPay", "Net Banking", "CO
 
 const social: Array<{ label: string; href: string }> = [
   { label: "Instagram", href: siteConfig.social.instagram },
-  { label: "YouTube", href: siteConfig.social.youtube },
-  { label: "X", href: siteConfig.social.x },
   { label: "WhatsApp", href: siteConfig.social.whatsapp },
 ];
 
