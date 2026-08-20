@@ -48,10 +48,10 @@ export const siteConfig = {
   currency: "INR",
 
   social: {
-    instagram: "https://instagram.com",
+    instagram: "https://www.instagram.com/pitlane_collective",
     youtube: "https://youtube.com",
     x: "https://x.com",
-    whatsapp: "https://wa.me/910000000000",
+    whatsapp: "https://wa.me/+917760095321",
   },
 } as const;
 
